@@ -56,10 +56,10 @@ Follow the steps outlined in the main [README.md](./README.md#getting-started).
 4. **Run checks**:
 
    ```bash
-   npm run typecheck    # Type checking
-   npm run lint         # Linting
-   npm run test         # Unit & integration tests
-   npm run test:e2e:ui  # End-to-end tests
+   pnpm run typecheck    # Type checking
+   pnpm run lint         # Linting
+   pnpm run test         # Unit & integration tests
+   pnpm run test:e2e:ui  # End-to-end tests
    ```
 
 5. **Commit changes** following our [Commit Guidelines](#commit-guidelines).
@@ -90,7 +90,7 @@ type(scope): short description
 After staging, use Commitizen for consistent formatting:
 
 ```bash
-npx cz
+pnpm exec cz
 ```
 
 ## Pull Request Process
@@ -144,8 +144,8 @@ Follow the project’s testing conventions:
 Run tests with:
 
 ```bash
-npm run test        # Unit & integration
-npm run test:e2e:ui # End-to-end
+pnpm run test        # Unit & integration
+pnpm run test:e2e:ui # End-to-end
 ```
 
 ## Style Guide

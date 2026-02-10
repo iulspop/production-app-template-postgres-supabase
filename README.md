@@ -68,7 +68,7 @@ npx create-react-router@latest --template janhesters/react-router-saas-template
 Install the dependencies:
 
 ```bash
-npm install
+pnpm install
 ```
 
 #### Quick Start
@@ -76,7 +76,7 @@ npm install
 For the fastest way to get started with local development using mocks (no external services required):
 
 ```bash
-npm run quickstart
+pnpm run quickstart
 ```
 
 This command will:
@@ -317,7 +317,7 @@ brew install stripe/stripe-cli/stripe
 or
 
 ```bash
-npm install -g stripe/stripe-cli
+pnpm add -g stripe/stripe-cli
 ```
 
 Confirm the installation:
@@ -378,7 +378,7 @@ By default, it uses three plans with seat limits of:
 You might need to tweak a bit of test code if you want to change these limits.
 Do a fuzzy search for these limits.
 
-For local development, run your app with `npm run dev` and forward webhooks to
+For local development, run your app with `pnpm run dev` and forward webhooks to
 your local server with
 `stripe listen --forward-to http://localhost:3000/api/v1/stripe/webhooks`.
 
@@ -417,7 +417,7 @@ using the Stripe CLI.
 
 ##### For Local Development: Replay the Events
 
-After you’ve created your products and prices locally (with `npm run dev` and
+After you've created your products and prices locally (with `pnpm run dev` and
 `stripe listen` forwarding to your webhook endpoint), you’ll see lines in your
 terminal like:
 
@@ -452,7 +452,7 @@ terminal like:
    xargs -n1 stripe events resend < stripe-events.txt
    ```
 
-   This command is also available via `npm run stripe:resend-events`.
+   This command is also available via `pnpm run stripe:resend-events`.
 
 > **Tip:** Keep `stripe-events.txt` checked into your repo (or in a safe place)
 > so you can easily replay your entire setup whenever you rebuild your local
@@ -470,7 +470,7 @@ Here’s how it works in each environment:
    keys you configured in Stripe.
 2. **Run Vitest**:
    ```bash
-   npm test
+   pnpm test
    ```
 
 The global setup (`app/test/vitest.global-setup.ts`) will detect your existing
@@ -497,7 +497,7 @@ What it does before your tests run:
 
 You don’t need to replay webhooks or manage `stripe-events.txt` in CI—this
 script handles everything. Just push your code and let your CI pipeline run
-`npm test`.
+`pnpm test`.
 
 #### Checkout Session
 
@@ -544,7 +544,7 @@ With all the envorinment variables set, you can run the app.
 Start the development server with HMR:
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 Your application will be available at `http://localhost:3000`.
@@ -553,7 +553,7 @@ If you haven't done it yet, with both your dev server and webhook forwarding
 terminal open, replay the Stripe events in a third terminal.
 
 ```bash
-npm run stripe:resend-events
+pnpm run stripe:resend-events
 ```
 
 ### Security Configuration
@@ -642,7 +642,7 @@ by cryptographically random nonces that are generated on each request.
 - `"prisma:deploy"` - Applies all pending migrations from the
   `prisma/migrations` directory to the database, then regenerates the Prisma
   Client. Typically used in production.
-- `"prisma:migrate"` - Run via `npm run prisma:migrate -- my_migration_name` to
+- `"prisma:migrate"` - Run via `pnpm run prisma:migrate -- my_migration_name` to
   create a new migration based on schema changes and apply it to the dev
   database.
 - `"prisma:push"` - Pushes the current Prisma schema to the database without
@@ -665,13 +665,13 @@ When you run the E2E tests locally, we recommend you do it in production mode
 and with mocks enabled. This resembles how your tests will run in CI. So your
 steps should be:
 
-1. Run `npm run build-with-mocks`.
-2. Run `npm run start-with-server-mocks`.
-3. In another terminal, run `npm run test:e2e` UI.
+1. Run `pnpm run build-with-mocks`.
+2. Run `pnpm run start-with-server-mocks`.
+3. In another terminal, run `pnpm run test:e2e` UI.
 4. Visit `localhost:3000` in your browser once. You should see
    `🔶 MSW mock server running ...` in the terminal running your app.
-5. (Optionally) In a new terminal, run `npm run prisma:wipe` and
-   `npm run stripe:resend-events` to reset the database and replay the Stripe
+5. (Optionally) In a new terminal, run `pnpm run prisma:wipe` and
+   `pnpm run stripe:resend-events` to reset the database and replay the Stripe
    events. (Anohter terminal that forwards the webhooks must already be
    running.)
 
@@ -685,7 +685,7 @@ Supabase, etc.), you can use the mock mode. This uses
 
 1. First, seed your database with demo data:
    ```bash
-   npm run prisma:seed
+   pnpm run prisma:seed
    ```
    This creates three demo organizations with subscriptions:
    - `hobby@example.com` - Hobby Plan (1 seat, monthly)
@@ -696,7 +696,7 @@ Supabase, etc.), you can use the mock mode. This uses
 
 2. Start the development server with mocks enabled:
    ```bash
-   npm run dev:mocks
+   pnpm run dev:mocks
    ```
 
 **Logging In:**
@@ -714,15 +714,15 @@ endpoints. To log in as one of the seeded users:
 To start fresh with a clean database:
 
 ```bash
-npm run prisma:wipe  # Resets the database
-npm run prisma:seed  # Re-seeds demo data
-npm run dev:mocks    # Start dev server
+pnpm run prisma:wipe  # Resets the database
+pnpm run prisma:seed  # Re-seeds demo data
+pnpm run dev:mocks    # Start dev server
 ```
 
 Or use the combined command:
 
 ```bash
-npm run prisma:reset-dev  # Wipes, seeds, and starts dev server
+pnpm run prisma:reset-dev  # Wipes, seeds, and starts dev server
 ```
 
 **Note:** The seed script creates demo users with subscriptions that include
@@ -798,7 +798,7 @@ next request without persisting in the session.
 
 ### Playwright 🎭
 
-> **Note:** make sure you've run `npm run dev` at least one time before you run
+> **Note:** make sure you've run `pnpm run dev` at least one time before you run
 > the E2E tests!
 
 We use Playwright for our End-to-End tests in this project. You'll find those in
@@ -809,10 +809,10 @@ changes.
 [Playwright natively features testing library selectors](https://playwright.dev/docs/release-notes#locators)
 for selecting elements on the page semantically.
 
-To run these tests in development, run `npm run test:e2e` which will start the
+To run these tests in development, run `pnpm run test:e2e` which will start the
 dev server for the app as well as the Playwright client.
 
-> **Note:** You might need to run `npx playwright install` to install the
+> **Note:** You might need to run `pnpm exec playwright install` to install the
 > Playwright browsers before running your tests for the first time.
 
 #### Problems with ShadcnUI
@@ -891,16 +891,16 @@ environment.
 
 ### Test Scripts
 
-- `npm run test` - Runs all Vitest tests.
-- `npm run test:e2e` - Runs all E2E tests with Playwright.
-- `npm run test:e2e:ui` - Runs all E2E tests with Playwright in UI mode.
+- `pnpm run test` - Runs all Vitest tests.
+- `pnpm run test:e2e` - Runs all E2E tests with Playwright.
+- `pnpm run test:e2e:ui` - Runs all E2E tests with Playwright in UI mode.
 
 ### Type Checking
 
 This project uses TypeScript. It's recommended to get TypeScript set up for your
 editor to get a really great in-editor experience with type checking and
 auto-complete. To run type checking across the whole project, run
-`npm run type-check`.
+`pnpm run typecheck`.
 
 ### Linting and Formatting
 
@@ -910,8 +910,8 @@ is configured in `biome.json`.
 It's recommended to install the
 [Biome VS Code extension](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)
 to get auto-formatting on save and inline linting feedback. You can also run
-`npm run check` to format and fix linting issues across all files in the
-project, or `npm run lint` to check for errors without making changes (useful
+`pnpm run check` to format and fix linting issues across all files in the
+project, or `pnpm run lint` to check for errors without making changes (useful
 for CI).
 
 ### AI-Driven Development
@@ -965,7 +965,7 @@ by [Eric Elliott](https://www.threads.com/@__ericelliott).
 Create a production build:
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 ## Deployment
@@ -975,18 +975,14 @@ npm run build
 This template includes three Dockerfiles optimized for different package
 managers:
 
-- `Dockerfile` - for npm
-- `Dockerfile.pnpm` - for pnpm
+- `Dockerfile` - for pnpm
 - `Dockerfile.bun` - for bun
 
 To build and run using Docker:
 
 ```bash
-# For npm
-docker build -t my-app .
-
 # For pnpm
-docker build -f Dockerfile.pnpm -t my-app .
+docker build -t my-app .
 
 # For bun
 docker build -f Dockerfile.bun -t my-app .
@@ -1010,11 +1006,11 @@ Docker, including:
 If you're familiar with deploying Node applications, the built-in app server is
 production-ready.
 
-Make sure to deploy the output of `npm run build`
+Make sure to deploy the output of `pnpm run build`
 
 ```
 ├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
+├── pnpm-lock.yaml (or bun.lockb)
 ├── build/
 │   ├── client/    # Static assets
 │   └── server/    # Server-side code
@@ -1025,7 +1021,7 @@ Make sure to deploy the output of `npm run build`
 You can use
 
 ```
-npx npm-check-updates -u
+pnpm exec npm-check-updates -u
 ```
 
 to check for updates and install the latest versions.
