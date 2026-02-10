@@ -24,6 +24,7 @@ import sonnerStyles from "sonner/dist/styles.css?url";
 
 import type { Route } from "./+types/root";
 import { NotFound } from "./components/not-found";
+import { ProgressBarComponent } from "./components/progress-bar";
 import { Toaster } from "./components/ui/sonner";
 import { getColorScheme } from "./features/color-scheme/color-scheme.server";
 import { useColorScheme } from "./features/color-scheme/use-color-scheme";
@@ -148,6 +149,7 @@ export function Layout({
       </head>
 
       <body className="min-h-svh">
+        <ProgressBarComponent />
         <OpenImgContextProvider
           getSrc={getImgSrc}
           optimizerEndpoint="/api/images"
