@@ -176,6 +176,7 @@ test.describe("login page", () => {
       });
 
       await page.goto(path);
+      await page.waitForLoadState("networkidle");
 
       // Click the Google login button.
       const googleLoginButton = page.getByRole("button", {

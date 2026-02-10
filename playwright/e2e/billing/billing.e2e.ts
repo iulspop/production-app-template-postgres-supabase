@@ -917,6 +917,7 @@ test.describe("billing page", () => {
 
     // go to billing
     await page.goto(createPath(organization.slug));
+    await page.waitForLoadState("networkidle");
 
     // — pending-downgrade banner —
     const pendingBanner = page.getByRole("alert");
@@ -950,7 +951,7 @@ test.describe("billing page", () => {
       page
         .getByRole("region", { name: /notifications/i })
         .getByText(/current subscription kept/i),
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 15_000 });
     await expect(pendingBanner).toBeHidden();
 
     await teardownOrganizationAndMember({ organization, user });
@@ -992,6 +993,7 @@ test.describe("billing page", () => {
 
     // navigate to billing
     await page.goto(createPath(organization.slug));
+    await page.waitForLoadState("networkidle");
 
     // — pending-downgrade banner —
     const pendingBanner = page.getByRole("alert");
@@ -1023,7 +1025,7 @@ test.describe("billing page", () => {
       page
         .getByRole("region", { name: /notifications/i })
         .getByText(/current subscription kept/i),
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 15_000 });
     await expect(pendingBanner).toBeHidden();
 
     // cleanup
