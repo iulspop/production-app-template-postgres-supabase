@@ -18,6 +18,9 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 
+# Lefthook
+lefthook-local.yml
+
 # Random
 count-lines.sh
 stripe-events.txt
