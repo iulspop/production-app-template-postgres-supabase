@@ -6,6 +6,8 @@ const schema = z.object({
   COOKIE_SECRET: z.string(),
   DATABASE_URL: z.string(),
   HONEYPOT_SECRET: z.string(),
+  HYPERDX_API_KEY: z.string().optional(),
+  HYPERDX_SERVICE_NAME: z.string().optional(),
   MOCKS: z.literal("true").optional(),
   NODE_ENV: z.enum(["production", "development", "test"] as const),
   RESEND_API_KEY: z.string().optional(),
@@ -51,6 +53,7 @@ export function init() {
 export function getEnv() {
   return {
     ALLOW_INDEXING: process.env.ALLOW_INDEXING,
+    HYPERDX_API_KEY: process.env.HYPERDX_API_KEY,
     MODE: process.env.NODE_ENV,
   };
 }

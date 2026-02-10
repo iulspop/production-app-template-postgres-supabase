@@ -1,6 +1,7 @@
 import "./app.css";
 
 import { FormOptionsProvider } from "@conform-to/react/future";
+import HyperDX from "@hyperdx/browser";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import type { ShouldRevalidateFunctionArgs } from "react-router";
@@ -190,6 +191,10 @@ export default function App({ loaderData: { locale } }: Route.ComponentProps) {
 }
 
 function BaseErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  if (error instanceof Error) {
+    HyperDX.addAction("error_boundary", { error: error.message });
+  }
+
   let message = "Oops!";
   let details = "An unexpected error occurred.";
   let stack: string | undefined;

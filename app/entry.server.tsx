@@ -107,6 +107,7 @@ export default async function handleRequest(
                   "connect-src": [
                     MODE === "development" ? "ws:" : undefined,
                     "'self'",
+                    "*.hyperdx.io",
                   ],
                   "font-src": ["'self'"],
                   "frame-src": ["'self'"],
@@ -156,4 +157,9 @@ export default async function handleRequest(
       },
     );
   });
+}
+
+/** HyperDX captures console output via OpenTelemetry instrumentation */
+export function handleError(error: unknown) {
+  console.error(error);
 }
