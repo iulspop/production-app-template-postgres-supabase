@@ -1,4 +1,5 @@
 import { IconBook2 } from "@tabler/icons-react";
+import { Img } from "openimg/react";
 import type { CSSProperties } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { Link } from "react-router";
@@ -95,18 +96,22 @@ export function Hero() {
       </div>
 
       <div className="mt-16 px-4">
-        <img
+        <Img
           alt={t("image.light")}
           className={cn(imageClassNames, "shadow-sm dark:hidden")}
+          height={1728}
           src="/images/app-light.png"
           style={imageFadeStyle}
+          width={3024}
         />
 
-        <img
+        <Img
           alt={t("image.dark")}
           className={cn(imageClassNames, "hidden dark:block")}
+          height={1728}
           src="/images/app-dark.png"
           style={imageFadeStyle}
+          width={3024}
         />
       </div>
 

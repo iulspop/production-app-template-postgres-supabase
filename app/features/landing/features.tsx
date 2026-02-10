@@ -1,3 +1,4 @@
+import { Img } from "openimg/react";
 import type { CSSProperties } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -80,25 +81,29 @@ export function Features() {
         {/* Billing Card */}
         <BentoCard className="max-h-min lg:col-span-2 lg:row-span-2 lg:rounded-tr-4xl">
           <BentoCardMedia className="overflow-hidden">
-            <img
+            <Img
               alt={cards[1].image?.light}
               className={cn(
                 imageClassNames,
                 "lg:rounded-tr-4xl",
                 "dark:hidden",
               )}
+              height={1728}
               src="/images/app-billing-light.png"
               style={imageFadeStyle}
+              width={3024}
             />
-            <img
+            <Img
               alt={cards[1].image?.dark}
               className={cn(
                 imageClassNames,
                 "lg:rounded-tr-4xl",
                 "hidden dark:block",
               )}
+              height={1728}
               src="/images/app-billing-dark.png"
               style={imageFadeStyle}
+              width={3024}
             />
           </BentoCardMedia>
 
@@ -112,21 +117,25 @@ export function Features() {
         {/* Authentication Card */}
         <BentoCard className="max-h-min lg:col-span-2 lg:row-span-2">
           <BentoCardMedia className="h-64 lg:h-88">
-            <img
+            <Img
               alt={cards[2].image?.light}
               className={cn(imageClassNames, "object-center", "dark:hidden")}
+              height={1728}
               src="/images/authentication-light.png"
               style={imageFadeStyle}
+              width={3024}
             />
-            <img
+            <Img
               alt={cards[2].image?.dark}
               className={cn(
                 imageClassNames,
                 "object-center",
                 "hidden dark:block",
               )}
+              height={1728}
               src="/images/authentication-dark.png"
               style={imageFadeStyle}
+              width={3024}
             />
           </BentoCardMedia>
 
@@ -140,18 +149,22 @@ export function Features() {
         {/* Notifications Card */}
         <BentoCard>
           <BentoCardMedia>
-            <img
+            <Img
               alt={cards[3].image?.light}
               className={cn("rounded-t-lg", "dark:hidden")}
+              height={540}
               src="/images/notifications-light.png"
               style={imageFadeStyle}
+              width={1080}
             />
 
-            <img
+            <Img
               alt={cards[3].image?.dark}
               className={cn("rounded-t-lg", "hidden dark:block")}
+              height={540}
               src="/images/notifications-dark.png"
               style={imageFadeStyle}
+              width={1080}
             />
           </BentoCardMedia>
 

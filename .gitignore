@@ -34,3 +34,6 @@ stripe-events.txt
 
 # Supabase
 .supabase
+
+# Image optimization cache
+/data/images/

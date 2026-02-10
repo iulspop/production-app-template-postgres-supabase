@@ -4,6 +4,7 @@ import {
   IconBook,
   IconTestPipe,
 } from "@tabler/icons-react";
+import { Img } from "openimg/react";
 import { useTranslation } from "react-i18next";
 
 import { cn } from "~/lib/utils";
@@ -63,7 +64,7 @@ export function Description() {
             </div>
           </div>
 
-          <img
+          <Img
             alt={t("image.light")}
             className={cn(imageClassNames, "dark:hidden")}
             height={1442}
@@ -71,7 +72,7 @@ export function Description() {
             width={2432}
           />
 
-          <img
+          <Img
             alt={t("image.dark")}
             className={cn(imageClassNames, "hidden dark:block")}
             height={1442}

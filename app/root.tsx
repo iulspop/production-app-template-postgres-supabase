@@ -2,6 +2,7 @@ import "./app.css";
 
 import { FormOptionsProvider } from "@conform-to/react/future";
 import HyperDX from "@hyperdx/browser";
+import { OpenImgContextProvider } from "openimg/react";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import type { ShouldRevalidateFunctionArgs } from "react-router";
@@ -39,6 +40,7 @@ import { combineHeaders } from "./utils/combine-headers.server";
 import { defineCustomMetadata } from "./utils/define-custom-metadata";
 import { getEnv } from "./utils/env.server";
 import { getDomainUrl } from "./utils/get-domain-url.server";
+import { getImgSrc } from "./utils/get-img-src";
 import { honeypot } from "./utils/honeypot.server";
 import { useNonce } from "./utils/nonce-provider";
 import { securityMiddleware } from "./utils/security-middleware.server";
@@ -146,15 +148,20 @@ export function Layout({
       </head>
 
       <body className="min-h-svh">
-        <FormOptionsProvider
-          defineCustomMetadata={defineCustomMetadata}
-          shouldRevalidate="onBlur"
-          shouldValidate="onSubmit"
+        <OpenImgContextProvider
+          getSrc={getImgSrc}
+          optimizerEndpoint="/api/images"
         >
-          <HoneypotProvider {...data?.honeypotInputProps}>
-            {children}
-          </HoneypotProvider>
-        </FormOptionsProvider>
+          <FormOptionsProvider
+            defineCustomMetadata={defineCustomMetadata}
+            shouldRevalidate="onBlur"
+            shouldValidate="onSubmit"
+          >
+            <HoneypotProvider {...data?.honeypotInputProps}>
+              {children}
+            </HoneypotProvider>
+          </FormOptionsProvider>
+        </OpenImgContextProvider>
 
         {/* Add nonce to inline scripts */}
         <script
