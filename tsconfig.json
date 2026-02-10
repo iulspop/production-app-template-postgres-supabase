@@ -25,6 +25,7 @@
     "types": ["node", "vite/client"],
     "verbatimModuleSyntax": true
   },
+  "exclude": ["supabase/functions"],
   "include": [
     "**/*.ts",
     "**/*.d.ts",

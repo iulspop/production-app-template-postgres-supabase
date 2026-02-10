@@ -22,7 +22,7 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**", "!.react-router"]
+    "includes": ["**", "!.react-router", "!supabase/functions"]
   },
   "formatter": {
     "enabled": true,

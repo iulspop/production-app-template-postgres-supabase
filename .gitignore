@@ -31,3 +31,6 @@ stripe-events.txt
 
 # Prisma
 /app/generated/
+
+# Supabase
+.supabase

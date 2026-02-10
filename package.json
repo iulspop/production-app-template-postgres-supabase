@@ -132,6 +132,8 @@
     "start": "NODE_OPTIONS='--import ./instrument.server.mjs' react-router-serve ./build/server/index.js",
     "start:mocks": "cross-env MOCKS=true NODE_OPTIONS='--import ./instrument.server.mjs' pnpm run start",
     "stripe:resend-events": "xargs -n1 stripe events resend < stripe-events.txt",
+    "supabase:deploy-functions": "supabase functions deploy --project-ref $SUPABASE_PROJECT_ID",
+    "supabase:serve-functions": "supabase functions serve",
     "test": "vitest --reporter=verbose --run",
     "test:e2e": "pnpm exec playwright test",
     "test:e2e:ui": "pnpm exec playwright test --ui",
