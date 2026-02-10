@@ -47,7 +47,7 @@ const rootConfig = defineConfig({
     staticCacheHeaders(),
     sudoFilesPlugin,
   ],
-  server: { port: 3000 },
+  server: { port: 4000 },
 });
 
 const testConfig = defineVitestConfig({

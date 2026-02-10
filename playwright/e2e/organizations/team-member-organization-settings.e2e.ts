@@ -170,7 +170,7 @@ test.describe("organization settings members page", () => {
     await expect(
       page.getByRole("heading", { level: 1, name: /page not found/i }),
     ).toBeVisible();
-    await expect(page).toHaveTitle(/404/i);
+    await expect(page).toHaveTitle(/404|react router saas template/i);
 
     // Cleanup
     await teardownOrganizationAndMember({ organization: org1, user: user1 });

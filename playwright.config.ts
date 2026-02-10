@@ -33,7 +33,7 @@ export default defineConfig({
   testMatch: "*.e2e.ts",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    baseURL: process.env.APP_URL ?? "http://localhost:3000",
+    baseURL: process.env.APP_URL ?? "http://localhost:4000",
     timezoneId: "UTC",
     trace: process.env.CI ? "on-first-retry" : "retain-on-failure",
   },
@@ -42,7 +42,7 @@ export default defineConfig({
   webServer: {
     command: process.env.CI ? "npm run start:mocks" : "npm run dev:mocks",
     env: { NODE_ENV: "test", TZ: "UTC" },
-    port: 3000,
+    port: 4000,
     reuseExistingServer: !process.env.CI,
   },
   /* Opt out of parallel tests. */

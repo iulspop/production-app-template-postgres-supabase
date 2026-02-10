@@ -18,7 +18,6 @@ function isSessionFresh(
 ): session is Session {
   if (!session) return false;
   const now = Math.floor(Date.now() / 1000);
-  // prefer expires_at, else compute from expires_in if you persisted it
   const exp = session.expires_at ?? now + (session.expires_in ?? 0);
   return exp > now + EXP_BUFFER_SEC;
 }
@@ -29,6 +28,8 @@ export const authMiddleware: MiddlewareFunction = async (
 ) => {
   const { supabase, headers } = createSupabaseServerClient({ request });
 
+  // On reads, trust the cookie session if fresh (no network call).
+  // Mutations always verify via getUser().
   if (request.method === "GET" || request.method === "HEAD") {
     const {
       data: { session },

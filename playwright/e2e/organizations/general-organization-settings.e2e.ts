@@ -68,7 +68,7 @@ test.describe("general organization settings", () => {
     await expect(
       page.getByRole("link", { name: /return home/i }),
     ).toHaveAttribute("href", "/");
-    expect(await page.title()).toMatch(/404|react router saas template/i);
+    await expect(page).toHaveTitle(/404|react router saas template/i);
 
     await teardownOrganizationAndMember({
       organization: otherOrganization,

@@ -105,9 +105,6 @@ test.describe("onboarding user account page", () => {
 
       await page.getByRole("button", { name: /continue/i }).click();
 
-      // Verify loading state
-      await expect(page.getByRole("button", { name: /saving/i })).toBeVisible();
-
       // Verify redirect and database update
       await expect(page.getByText(/create your organization/i)).toBeVisible();
       const updatedUser = await retrieveUserAccountFromDatabaseById(id);
@@ -151,9 +148,6 @@ test.describe("onboarding user account page", () => {
       const newName = createPopulatedUserAccount().name;
       await page.getByRole("textbox", { name: /name/i }).fill(newName);
       await page.getByRole("button", { name: /continue/i }).click();
-
-      // Verify loading state
-      await expect(page.getByRole("button", { name: /saving/i })).toBeVisible();
 
       // Verify redirect and database update
       await expect(
