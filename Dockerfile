@@ -1,27 +1,32 @@
-FROM node:20-alpine AS development-dependencies-env
-RUN corepack enable
-COPY . /app
-WORKDIR /app
-RUN pnpm install --frozen-lockfile
+FROM node:20-alpine AS base
+RUN corepack enable pnpm
 
-FROM node:20-alpine AS production-dependencies-env
-RUN corepack enable
-COPY ./package.json pnpm-lock.yaml /app/
+FROM base AS development-dependencies-env
 WORKDIR /app
-RUN pnpm install --frozen-lockfile --prod
+COPY pnpm-lock.yaml ./
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store pnpm fetch
+COPY package.json ./
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile --ignore-scripts
 
-FROM node:20-alpine AS build-env
-RUN corepack enable
-COPY . /app/
-COPY --from=development-dependencies-env /app/node_modules /app/node_modules
+FROM base AS production-dependencies-env
 WORKDIR /app
-RUN pnpm run build
+COPY pnpm-lock.yaml ./
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store pnpm fetch --prod
+COPY package.json ./
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile --prod
 
-FROM node:20-alpine
-RUN corepack enable
-COPY ./package.json pnpm-lock.yaml /app/
-COPY --from=production-dependencies-env /app/node_modules /app/node_modules
-COPY --from=build-env /app/build /app/build
-COPY --from=build-env /app/instrument.server.mjs /app/
+FROM base AS build-env
 WORKDIR /app
-CMD ["pnpm", "run", "start"]
+COPY --from=development-dependencies-env /app/node_modules ./node_modules
+COPY . ./
+RUN pnpm exec prisma generate && pnpm run build
+
+FROM base
+WORKDIR /app
+COPY package.json ./
+COPY --from=production-dependencies-env /app/node_modules ./node_modules
+COPY --from=build-env /app/build ./build
+COPY --from=build-env /app/app/generated ./app/generated
+COPY --from=build-env /app/instrument.server.mjs ./
+COPY public ./public
+CMD ["node", "--import", "./instrument.server.mjs", "./node_modules/@react-router/serve/bin.js", "./build/server/index.js"]
