@@ -1001,6 +1001,34 @@ Docker, including:
 - Fly.io
 - Railway
 
+### Scaling Beyond This Template
+
+This template is designed for apps serving dozens to tens of thousands of users
+with Fly.io + Supabase. The database is the first bottleneck you'll hit — app
+servers are stateless and scale horizontally by adding machines, but the database
+needs read replicas, connection pooling, and eventually multi-region writes as
+load grows. Supabase Pro/Team handles this to a point (more compute, read replicas,
+connection pooling). Beyond that, you'd migrate to a bare managed Postgres
+service (RDS, Aurora, Cloud SQL, Neon) which gives you more control over
+replication, instance tuning, and scaling — but you lose the bundled auth,
+storage, and realtime that Supabase provides.
+
+Once you outgrow the database layer and need full control over networking,
+autoscaling, and multi-region architecture, there are two paths:
+
+- **Managed cloud (AWS, GCP, Azure):** Move to ECS/EKS, Cloud Run, or Container
+  Apps. You gain fine-grained control over the full infrastructure stack (load
+  balancers, VPCs, container orchestration, multi-region databases, secrets
+  management). Higher engineering complexity, but the cloud provider handles the
+  hardware and most of the ops.
+- **Own your infrastructure:** Use a deployment tool like
+  [Kamal](https://kamal-deploy.org/) to deploy Docker containers to your own
+  servers (bare metal or VMs from providers like Hetzner). You get full control
+  without cloud vendor lock-in, and at sufficient scale the compute cost savings
+  are significant. You manage the machines, networking, and database yourself —
+  but you become your own cloud, which is a valid and proven strategy
+  (37signals, Cloudflare, and others run this way).
+
 ### DIY Deployment
 
 If you're familiar with deploying Node applications, the built-in app server is

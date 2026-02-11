@@ -1,5 +1,5 @@
 app = "production-app-template"
-primary_region = "yyz"
+primary_region = "sjc"
 
 [build]
 

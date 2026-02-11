@@ -14,16 +14,16 @@ The application is stateless (Supabase Postgres is the sole data store), so mach
 
 Key constraints:
 
-- **Write-heavy workload.** Database is single-region (Supabase in us-east-1). Write latency is bounded by proximity to the database.
+- **Write-heavy workload.** Database is single-region (Supabase in us-west-2). Write latency is bounded by proximity to the database.
 - **North America scope.** Users in US and Canada. No immediate need for global edge distribution.
 - **Cost-conscious.** This is an early-stage product. Spend on reliability, not on over-provisioning.
+- **Latency dominates.** Cross-region DB queries (e.g. Toronto → Oregon) add 60-80ms per query. Pages with multiple sequential queries become noticeably slow (800-1400ms). Co-locating servers with the database is more important than geographic redundancy.
 
 ## Decision
 
-- 2 machines, always on, in two different NA regions:
-  - `iad` (Virginia) — co-located with Supabase Postgres for lowest write latency
-  - `ord` (Chicago) or `sea` (Seattle) — geographic redundancy and better latency for central/west coast users
-- `min_machines_running = 1` per region — both always warm, no cold starts
+- 2 machines, always on, in a single region co-located with the database:
+  - `sjc` (San Jose) — co-located with Supabase Postgres in us-west-2 for lowest DB latency
+- `min_machines_running = 1` — both always warm, no cold starts
 - Canary deploys — deploy to one machine first, verify health checks pass, then roll forward to the rest. Automatically stops if the canary fails.
 - Health checks every 10s on `/healthcheck`, 30s grace period
 - HyperDX for observability (logs, traces, metrics, session replays)
@@ -32,9 +32,10 @@ Key constraints:
 
 ## Consequences
 
-- **~$8-16/mo compute cost** for 2 always-on machines across 2 regions. Acceptable for production reliability.
-- **Zero-downtime deploys** with rolling strategy across regions.
-- **Region failover.** If one region goes down entirely, Fly routes all traffic to the surviving region automatically.
-- **Single-region database.** All writes go to Supabase in us-east-1. The `iad` machine has ~1-5ms DB latency; the second region has ~20-40ms. Acceptable for most write-heavy workloads.
+- **~$8-16/mo compute cost** for 2 always-on machines in one region. Acceptable for production reliability.
+- **Zero-downtime deploys** with canary strategy across machines.
+- **Machine failover.** If one machine goes down, Fly routes traffic to the surviving machine automatically.
+- **Low DB latency.** Both machines in `sjc` have ~1-5ms latency to Supabase in us-west-2.
 - **No cold starts.** Always-on machines eliminate latency variance for users.
-- **Scaling is manual.** Adding machines per region is a config change. Fly's auto-start can handle bursts, but sustained growth requires deliberate scaling decisions.
+- **Scaling path.** Add a second region later when user base justifies it — requires Supabase read replica in that region to avoid cross-region DB latency.
+- **Scaling is manual.** Adding machines is a config change. Fly's auto-start can handle bursts, but sustained growth requires deliberate scaling decisions.

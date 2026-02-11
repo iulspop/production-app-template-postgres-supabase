@@ -2,10 +2,10 @@
 set -euo pipefail
 
 # First-time Fly.io setup for the production app template.
-# Creates the app, sets secrets, scales to 2 regions, and deploys.
+# Creates the app, sets secrets, scales to 2 machines in sjc, and deploys.
 
 APP_NAME=""
-REGIONS=("yyz" "sea")
+REGION="sjc"
 
 # Secrets to read from .env or prompt for
 SECRET_NAMES=(
@@ -80,16 +80,14 @@ if [ -n "$secret_args" ]; then
   success "Secrets set"
 fi
 
-# 5. Scale to 2 regions
-info "Scaling to ${#REGIONS[@]} regions: ${REGIONS[*]}..."
-for region in "${REGIONS[@]}"; do
-  flyctl scale count 1 --region "$region" --app "$APP_NAME" --yes || true
-done
-success "Scaled to ${#REGIONS[@]} regions"
+# 5. Scale to 2 machines in same region (co-located with Supabase DB)
+info "Scaling to 2 machines in $REGION..."
+flyctl scale count 2 --region "$REGION" --app "$APP_NAME" --yes || true
+success "Scaled to 2 machines in $REGION"
 
 # 6. Set machine size
-info "Setting machine size to shared-cpu-1x 256MB..."
-flyctl scale vm shared-cpu-1x --memory 256 --app "$APP_NAME" || true
+info "Setting machine size to shared-cpu-1x 512MB..."
+flyctl scale vm shared-cpu-1x --memory 512 --app "$APP_NAME" || true
 success "Machine size set"
 
 # 7. Deploy

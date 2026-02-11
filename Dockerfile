@@ -13,7 +13,7 @@ WORKDIR /app
 COPY pnpm-lock.yaml ./
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store pnpm fetch --prod
 COPY package.json ./
-RUN --mount=type=cache,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile --prod
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile --prod --ignore-scripts && pnpm rebuild sharp
 
 FROM base AS build-env
 WORKDIR /app
