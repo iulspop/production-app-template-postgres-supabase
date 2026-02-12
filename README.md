@@ -3,6 +3,10 @@
 A modern, production-ready template for building full-stack B2B & B2C SaaS
 applications using React Router.
 
+```bash
+npx create-react-router@latest --template iulspop/production-app-template-postgres-supabase
+```
+
 [![YouTbe thumbnail](https://i.ytimg.com/vi/5p45AbpL4bo/maxresdefault.jpg)](https://www.youtube.com/watch?v=5p45AbpL4bo)
 
 You can
