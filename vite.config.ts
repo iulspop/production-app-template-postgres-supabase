@@ -42,7 +42,7 @@ function staticCacheHeaders(): Plugin {
 const rootConfig = defineConfig({
   plugins: [
     tailwindcss(),
-    !process.env.VITEST && reactRouter(),
+    !process.env.VITEST && !process.env.STORYBOOK && reactRouter(),
     tsconfigPaths(),
     staticCacheHeaders(),
     sudoFilesPlugin,

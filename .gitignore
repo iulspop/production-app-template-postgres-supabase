@@ -35,5 +35,8 @@ stripe-events.txt
 # Supabase
 .supabase
 
+# Storybook
+/storybook-static/
+
 # Image optimization cache
 /data/images/
