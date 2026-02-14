@@ -26,6 +26,7 @@
     "@react-router/node": "7.10.1",
     "@react-router/serve": "7.10.1",
     "@remix-run/form-data-parser": "0.14.0",
+    "@remix-run/multipart-parser": "^0.14.2",
     "@supabase/ssr": "0.8.0",
     "@supabase/supabase-js": "2.87.1",
     "@tabler/icons-react": "3.35.0",

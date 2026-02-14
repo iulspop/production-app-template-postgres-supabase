@@ -71,6 +71,9 @@ importers:
       '@remix-run/form-data-parser':
         specifier: 0.14.0
         version: 0.14.0
+      '@remix-run/multipart-parser':
+        specifier: ^0.14.2
+        version: 0.14.2
       '@supabase/ssr':
         specifier: 0.8.0
         version: 0.8.0(@supabase/supabase-js@2.87.1)
@@ -2574,8 +2577,14 @@ packages:
   '@remix-run/headers@0.15.0':
     resolution: {integrity: sha512-wGXHv9nAt8z8KQqc1bdtclduJwTO+zlQEjcNqYyifE8WqKToYu6/PJCDh5PGn0o4DHj8K71rEyP3MwZsIRRccg==}
 
+  '@remix-run/headers@0.19.0':
+    resolution: {integrity: sha512-+62NbkXuXm9r/NdG6KfH9OCKofCWm8VjkrVPICiHKtRl8Gf2Vi6eFTN4mGgBlZRhd5mmEVRV4hTIn/JUSHDAOw==}
+
   '@remix-run/multipart-parser@0.13.0':
     resolution: {integrity: sha512-EMEnc4YOzOnw62BmdTqvlmvzUCYDsQ1fpca6Xtvn8oV5GHXMYJoB3ocQyA+KNAa3j8QzKyNomifUXJ9OVrGEXA==}
+
+  '@remix-run/multipart-parser@0.14.2':
+    resolution: {integrity: sha512-yDq9ql4Xz92bRG/Sgl4cg2dRlxxC6A40XBy/oyDhy76hJtTQvgyzx9sfPXYPxcfL1BtqljC+sYHE0PvjmQhSfw==}
 
   '@remix-run/node-fetch-server@0.9.0':
     resolution: {integrity: sha512-SoLMv7dbH+njWzXnOY6fI08dFMI5+/dQ+vY3n8RnnbdG7MdJEgiP28Xj/xWlnRnED/aB6SFw56Zop+LbmaaKqA==}
@@ -9105,9 +9114,15 @@ snapshots:
 
   '@remix-run/headers@0.15.0': {}
 
+  '@remix-run/headers@0.19.0': {}
+
   '@remix-run/multipart-parser@0.13.0':
     dependencies:
       '@remix-run/headers': 0.15.0
+
+  '@remix-run/multipart-parser@0.14.2':
+    dependencies:
+      '@remix-run/headers': 0.19.0
 
   '@remix-run/node-fetch-server@0.9.0': {}
 
