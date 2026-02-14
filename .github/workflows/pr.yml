@@ -114,7 +114,7 @@ jobs:
         run: cp .env.example .env
 
       - name: 🛠 Setup Database
-        run: pnpm prisma:wipe
+        run: pnpm prisma generate && pnpm prisma:wipe
 
       - name: 🛠️ Typegen
         run: pnpm typegen
@@ -160,7 +160,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: 🛠 Setup Database
-        run: pnpm prisma:wipe
+        run: pnpm prisma generate && pnpm prisma:wipe
 
       - name: 🛠️ Typegen
         run: pnpm typegen
