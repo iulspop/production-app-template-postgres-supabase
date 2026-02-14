@@ -19,7 +19,7 @@ FROM base AS build-env
 WORKDIR /app
 COPY --from=development-dependencies-env /app/node_modules ./node_modules
 COPY . ./
-RUN pnpm exec prisma generate && pnpm run build
+RUN DATABASE_URL="postgresql://placeholder" pnpm exec prisma generate && pnpm run build
 
 FROM base
 WORKDIR /app
